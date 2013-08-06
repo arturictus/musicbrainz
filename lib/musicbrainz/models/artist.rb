@@ -23,6 +23,13 @@ module MusicBrainz
           create_model: :artist
         })
       end
+      
+      def find_with_relations(id)
+        client.load(:artist, { id: id, inc: [:url_rels, :artist_rels, :recording_rels, :releases] }, {
+          binding: :artist,
+          create_model: :artist
+        })
+      end
 
       def search(name)
 				super({artist: name})
